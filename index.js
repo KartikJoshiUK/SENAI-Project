@@ -9,7 +9,7 @@ const PORT = 3000;
 app.use(express.json());
 
 // InitialValues
-const people = [
+let people = [
   { id: "#1", name: "Person 1", tickets: [] },
   { id: "#2", name: "Person 2", tickets: [] },
   { id: "#3", name: "Person 3", tickets: [] },
@@ -78,7 +78,7 @@ app.get("/reset", (req, res) => {
   res.status(200).send("All tickets are reset");
 });
 app.get("/tickets", (req, res) => {
-  res.status(200).json(people);
+  res.status(200).json({ people });
 });
 
 app.listen(PORT, () => {
