@@ -19,10 +19,6 @@ const people = [
 let ticketCounter = 1;
 let currentAssigneeIndex = 0;
 
-app.get("/", (req, res) => {
-  res.status(200).send("Server Running Properly => [POST on /tickets]");
-});
-
 // Create a new ticket
 app.post("/tickets", (req, res) => {
   try {
@@ -66,6 +62,23 @@ app.post("/tickets", (req, res) => {
   } catch {
     res.status(500).json({ message: "Something went wrong", success: false });
   }
+});
+
+// EXTRA FUNCTIONALITIES
+app.get("/", (req, res) => {
+  res.status(200).send("Server Running Properly => [POST on /tickets]");
+});
+app.get("/reset", (req, res) => {
+  // Resetting values
+  ticketCounter = 1;
+  currentAssigneeIndex = 0;
+  people = people.map((person) => {
+    person.tickets = [];
+  });
+  res.status(200).send("All tickets are reset");
+});
+app.get("/tickets", (req, res) => {
+  res.status(200).json(people);
 });
 
 app.listen(PORT, () => {
